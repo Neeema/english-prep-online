@@ -186,7 +186,6 @@ a:after {
 	background: #ebebeb;
 	padding-top: 70px;
 	padding-bottom: 70px;
-	text-align: center;
 }
 
 #lg h4 {
@@ -417,4 +416,10 @@ a:after {
 
 .offer{
   text-align: left;
+}
+
+.point{
+    top: -18px;
+    position: relative;
+    padding-bottom: 10px;
 }

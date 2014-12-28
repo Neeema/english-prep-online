@@ -57,6 +57,13 @@ module.exports = function(grunt) {
           cssDir: 'src/css'
         }
       }
+    },
+
+    uglify: {
+      build: {
+        src: ['src/**/*.js'],
+        dest: 'dist/js/build.js'
+      }
     }
   });
 
@@ -70,10 +77,12 @@ module.exports = function(grunt) {
   'open',
   // Starts monitoring the folders and keep Grunt alive
   'regarde'
+
   ]);
 
-  grunt.loadNpmTasks('grunt-contrib-compass');
 
+  // grunt.loadNpmTasks('grunt-contrib-compass');
+  // grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.registerTask('default', ['compass', 'server']);
 
 };
