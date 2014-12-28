@@ -423,3 +423,14 @@ a:after {
     position: relative;
     padding-bottom: 10px;
 }
+
+.icon{
+    padding: 0px 34px;
+    text-align: center;
+    position: relative;
+    top: -18px;
+}
+
+.title{
+    padding-bottom: 55px;
+}
