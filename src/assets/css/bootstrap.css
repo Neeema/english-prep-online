@@ -2536,6 +2536,8 @@ fieldset[disabled] .btn-link:focus {
   font-size: 18px;
   line-height: 1.33;
   border-radius: 6px;
+  width:150px;
+  height:80px;
 }
 
 .btn-sm,
