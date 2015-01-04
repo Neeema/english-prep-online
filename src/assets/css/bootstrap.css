@@ -1898,6 +1898,15 @@ output {
   color: #999999;
 }
 
+.form-message{
+margin-bottom:20px;
+padding:20px 20px 0;
+color:#ccc;
+ background:#626262;
+ border:1px solid #000;
+ border-radius:8px;
+}
+
 .form-control {
   display: block;
   width: 100%;
