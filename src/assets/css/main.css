@@ -434,3 +434,20 @@ a:after {
 .title{
     padding-bottom: 55px;
 }
+
+.disabled{
+
+}
+
+
+/*full calendar*/
+.fc-past{
+    background: #FF8585;
+}
+/*bootstrap overwrite*/
+.btn-lg{
+    padding: 12px 28px;
+}
+
+
+

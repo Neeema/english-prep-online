@@ -16,7 +16,6 @@
 
   <!-- Custom styles for this template -->
   <link href="assets/css/main.css" rel="stylesheet">
-  <link href="assets/css/cal/glDatePicker.default.css" rel="stylesheet">
     <link href="assets/css/fullcalendar.min.css" rel="stylesheet">
 
 
@@ -32,6 +31,8 @@
     <script src="assets/js/moment.min.js"></script>
     <script src="assets/js/fullcalendar.min.js"></script>
     <script src="assets/js/gcal.js"></script>
+    <script src="assets/js/jquery.noty.packaged.min.js"></script>
+    <script src="assets/js/jstz.min.js"></script>
     <script src="assets/js/main.js"></script>
 </head>
 
@@ -53,8 +54,8 @@
           <li><a href="index.html">HOME</a></li>
           <li class="active"><a href="schedule.html">SCHEDULE</a></li>
           <li><a href="about.html">ABOUT</a></li>
-          <li><a href="services.html">SERVICES</a></li>
-          <li><a href="works.html">PRICE</a></li>
+          <li><a href="how_it_works.html">HOW IT WORKS</a></li>
+          <li><a href="">PRICE</a></li>
           <li><a data-toggle="modal" data-target="#myModal" href="#myModal"><i class="fa fa-envelope-o"></i></a></li>
         </ul>
       </div><!--/.nav-collapse -->
@@ -69,11 +70,25 @@
       <div gldp-el="mydate"
            style="width:400px; height:300px; position:absolute; top:70px; left:100px;">
       </div> -->
-      <div class="row col-md-5" id="calendar">
+      <div class="row col-md-8" id="calendar">
 
       </div>
   </div>
-
+  <div id="fullCalModal" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
+          <h4 id="modalTitle" class="modal-title"></h4>
+        </div>
+        <div id="modalBody" class="modal-body"></div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button class="btn btn-primary"><a id="eventUrl" target="_blank">Event Page</a></button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- FOOTER -->
   <div id="f">
