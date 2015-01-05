@@ -2,6 +2,7 @@ $(document).ready(function() {
     
     autoPlayYouTubeModal();
     //http://jsfiddle.net/VjNFn/16/
+    //.fullCalendar( 'clientEvents' [, idOrFilter ] )
     var calendar = $('#calendar').fullCalendar({
         googleCalendarApiKey: 'AIzaSyByK8XMmNj9XIy14Q7eBF6FtHd2_STf7UQ',
         events: {
@@ -17,48 +18,22 @@ $(document).ready(function() {
         ignoreTimezone: false,
         allDaySlot: false,
         editable: true,
+        selectable: true,
+        selectHelper: true,
+        stick: true,
+        timezone: "local",
         events: {
             url: 'https://www.googleapis.com/calendar/v3/calendars/events?key=AIzaSyByK8XMmNj9XIy14Q7eBF6FtHd2_STf7UQ'
         },
         dayClick: dayClickCallback,
         eventClick: eventClickCallback,
         eventRender: function(event, element) {
-            element.find(".fc-title").after($("<a tabindex='0' role='button' data-toggle='popover' data-trigger='focus' class='event-icon fa fa-trash-o'></a>"));
+            element.find(".fc-title").after($("<a tabindex='0' role='button' data-toggle='popover' data-trigger='focus' class='event-icon fa fa-trash-o fa-lg'></a>"));
         },
         dayRender: function(date, cell) {
         //test
         },
-        viewDisplay: function(view) {
-            if (false) {
-                var now = new Date();
-                var end = new Date();
-                end.setMonth(now.getMonth() + 11); //Adjust as needed
-                
-                var cal_date_string = view.start.getMonth() + '/' + view.start.getFullYear();
-                var cur_date_string = now.getMonth() + '/' + now.getFullYear();
-                var end_date_string = end.getMonth() + '/' + end.getFullYear();
-                
-                if (cal_date_string == cur_date_string) {
-                    jQuery('.fc-button-prev').addClass("fc-state-disabled");
-                } 
-                else {
-                    jQuery('.fc-button-prev').removeClass("fc-state-disabled");
-                }
-                
-                if (end_date_string == cal_date_string) {
-                    jQuery('.fc-button-next').addClass("fc-state-disabled");
-                } 
-                else {
-                    jQuery('.fc-button-next').removeClass("fc-state-disabled");
-                }
-            }
-        
-        },
-        selectable: true,
-        selectHelper: true,
-        stick: true,
-        select: selectCallback,
-        timezone: "local"
+        select: selectCallback
     });
 
 
@@ -78,46 +53,75 @@ var dayClickCallback = function(date, allDay, jsEvent, view) {
         calendar.fullCalendar("gotoDate", date);
         calendar.fullCalendar('unselect');
     }
+
 }
 
-var selectCallback = function(start, end, allDay) {
-    
-    $('#session #startTime').val(start);
-    $('#session #endTime').val(end);
-    
-    $("#calendar").fullCalendar('renderEvent', 
-    {
-        title: "session",
-        start: start,
-        end: end,
-    }, 
-    true);
+var selectCallback = function(start, end, jsEvent, view) {
 
-    // $('#modalTitle').html(event.title);
-    // $('#modalBody').html(event.description);
-    // $('#eventUrl').attr('href',event.url);
-    // $('#fullCalModal').modal();
+    //TODO: remove icon should be created when user selects. 
+    //if the view was month, user didnt select any dates!
+    if (view.name !== "month") {
+        var calendar = $('#calendar');
+        var m = moment();
+
+        addCalanderEvent(" title", start, end);
+    }
+
+
+
+
+
+
+// $('#modalTitle').html(event.title);
+// $('#modalBody').html(event.description);
+// $('#eventUrl').attr('href',event.url);
+// $('#fullCalModal').modal();
 }
 
 var eventClickCallback = function(calEvent, jsEvent, view) {
-  
-    console.log("clikcing")
+    var calendar = $('#calendar');
     if ($(jsEvent.target).is("a.fa-trash-o")) {
-        $(this).popover({
+        var current_trigger = $(this);
+        current_trigger.popover({
             html: true,
-            placement: 'right',
+            placement: 'top',
             container: 'body',
             animation: true,
-            title: function() {
-                return "Remove?";
-            },
-            content: function() {
-                return "TODO: ADD REMOVE BUTTON?";
-            }
+            title: "<span class='text-info'>Remove this session? </span> <button type='button' id='close' class='close no-action'>&times;</button>",
+            content: "<div class='text-center'><button type='button' class='yes-action btn btn-success'>Yes</button> <button type='button' class='btn btn-danger no-action'> No </button></div>"
+        });
+        
+        var current_popover = current_trigger.data('bs.popover').tip();
+        
+        current_popover.find('button.no-action').click(function() {
+            current_trigger.popover('hide');
+            current_trigger.popover('destroy');
+        });
+        
+        current_popover.find('button.yes-action').click(function() {
+            current_trigger.popover('hide');
+            current_trigger.popover('destroy');
+            current_trigger.remove();
+            current_trigger.css('display', 'none');
+            calendar.fullCalendar('removeEvents', calEvent._id);
         });
     }
 
 }
+
+
+var addCalanderEvent = function addCalanderEvent(title, start, end) 
+{
+    var eventObject = {
+        title: "test",
+        start: start,
+        end: end
+    };
+     
+    $('#calendar').fullCalendar('renderEvent', eventObject, true);
+    return eventObject;
+}
+
 
 function autoPlayYouTubeModal() {
     var trigger = $("body").find('[data-toggle="modal"]');

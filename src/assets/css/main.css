@@ -444,15 +444,21 @@ a:after {
 .fc-past{
     background: rgba(255, 133, 133, 0.31);
 }
+
+/****/
+
 /*bootstrap overwrite*/
 .btn-lg{
     padding: 12px 28px;
 }
+
+/******/
 
 .event-icon{
     float: right;
     padding: 3px 7px;
 }
 
-
-
+td .clickable {
+	cursor: pointer;
+}
